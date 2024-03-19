@@ -22,7 +22,7 @@ def calcular_hash_dos_arquivos():
 def salvar_hashes(hashes):
     conn = sqlite3.connect('cnpj.db')
     cursor = conn.cursor()
-    cursor.executescript('''
+    cursor.execute('''
     CREATE TABLE IF NOT EXISTS arquivos (
         nome VARCHAR(30) NOT NULL,
         hash VARCHAR(64) NOT NULL,
@@ -35,6 +35,18 @@ def salvar_hashes(hashes):
     conn.commit()
     conn.close()
 
+# def somar_pares_recursivamente(lista):
+#     soma_dos_pares = []
+#     tamanho_lista = len(lista)
+#     if tamanho_lista == 1: return
+#     for i in range(0, tamanho_lista, 2):
+#         if tamanho_lista % 2 != 0 and i == tamanho_lista - 1:
+#             soma = lista[i] + lista[i]
+#             soma_dos_pares.append(soma)
+#             break
+#         soma = lista[i] + lista[i + 1]
+#         soma_dos_pares.append(soma)
+#     return somar_pares_recursivamente(soma_dos_pares)
 
 def comparar_hashes():
     pass
