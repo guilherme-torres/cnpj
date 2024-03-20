@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS empresas (
     razao_social VARCHAR(255),
     natureza_juridica VARCHAR(4),
     qualificacao_do_responsavel VARCHAR(2),
-    capital_social_da_empresa VARCHAR(11),
+    capital_social_da_empresa VARCHAR(20),
     porte_da_empresa VARCHAR(2),
     ente_federativo_responsavel VARCHAR(100)
 );
