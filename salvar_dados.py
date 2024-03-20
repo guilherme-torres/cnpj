@@ -1,13 +1,16 @@
-import sqlite3
+# import sqlite3
+from bd_conexao import conexao # postgres
 import os
 import csv
 
 def criar_tabelas():
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     with open('criar_tabelas.sql') as arquivo_sql:
         sql = arquivo_sql.read()
         cursor = conn.cursor()
-        cursor.executescript(sql)
+        cursor.execute(sql)
+    conn.commit()
     conn.close()
 
 
@@ -20,14 +23,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Cnaes.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM cnaes')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO cnaes VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO cnaes VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -39,14 +43,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Paises.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM paises')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO paises VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO paises VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -58,14 +63,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Municipios.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM municipios')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO municipios VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO municipios VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -77,14 +83,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Qualificacoes.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM qualificacoes')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO qualificacoes VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO qualificacoes VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -96,14 +103,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Naturezas.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM naturezas')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO naturezas VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO naturezas VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -115,14 +123,15 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Motivos.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        conn = sqlite3.connect('cnpj.sqlite3')
+        # conn = sqlite3.connect('cnpj.sqlite3')
+        conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM motivos')
         conn.commit()
         contagem_de_linhas = 0
         for row in reader:
             contagem_de_linhas += 1
-            cursor.execute('INSERT INTO motivos VALUES (?, ?)', tuple(row))
+            cursor.execute('INSERT INTO motivos VALUES (%s, %s)', row)
             if contagem_de_linhas == 1000:
                 conn.commit()
                 contagem_de_linhas = 0
@@ -132,7 +141,8 @@ def salvar_dados():
 
     # Simples
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Simples')]
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM simples')
     conn.commit()
@@ -142,7 +152,7 @@ def salvar_dados():
             reader = csv.reader(arquivo_csv, delimiter=';')
             for row in reader:
                 contagem_de_linhas += 1
-                cursor.execute('INSERT INTO simples VALUES (?,?,?,?,?,?,?)', tuple(row))
+                cursor.execute('INSERT INTO simples VALUES (%s,%s,%s,%s,%s,%s,%s)', row)
                 if contagem_de_linhas == 1000:
                     conn.commit()
                     contagem_de_linhas = 0
@@ -152,7 +162,8 @@ def salvar_dados():
 
     # Empresas
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Empresas')]
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM empresas')
     conn.commit()
@@ -162,7 +173,7 @@ def salvar_dados():
             reader = csv.reader(arquivo_csv, delimiter=';')
             for row in reader:
                 contagem_de_linhas += 1
-                cursor.execute('INSERT INTO empresas VALUES (?,?,?,?,?,?,?)', tuple(row))
+                cursor.execute('INSERT INTO empresas VALUES (%s,%s,%s,%s,%s,%s,%s)', row)
                 if contagem_de_linhas == 1000:
                     conn.commit()
                     contagem_de_linhas = 0
@@ -172,7 +183,8 @@ def salvar_dados():
 
     # Estabelecimentos
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Estabelecimentos')]
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM estabelecimentos')
     conn.commit()
@@ -182,7 +194,7 @@ def salvar_dados():
             reader = csv.reader((linha.replace('\0', '') for linha in arquivo_csv), delimiter=';')
             for row in reader:
                 contagem_de_linhas += 1
-                cursor.execute('INSERT INTO estabelecimentos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', tuple(row))
+                cursor.execute('INSERT INTO estabelecimentos VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', row)
                 if contagem_de_linhas == 1000:
                     conn.commit()
                     contagem_de_linhas = 0
@@ -192,7 +204,8 @@ def salvar_dados():
 
     # Socios
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Socios')]
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM socios')
     conn.commit()
@@ -202,7 +215,7 @@ def salvar_dados():
             reader = csv.reader(arquivo_csv, delimiter=';')
             for row in reader:
                 contagem_de_linhas += 1
-                cursor.execute('INSERT INTO socios VALUES (?,?,?,?,?,?,?,?,?,?,?)', tuple(row))
+                cursor.execute('INSERT INTO socios VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', row)
                 if contagem_de_linhas == 1000:
                     conn.commit()
                     contagem_de_linhas = 0

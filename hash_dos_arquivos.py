@@ -1,5 +1,6 @@
 import os
-import sqlite3
+# import sqlite3
+from bd_conexao import conexao # postgres
 import hashlib
 
 def calcular_hash_dos_arquivos():
@@ -90,7 +91,8 @@ def calcular_hash_dos_pares(lista):
 
 
 def salvar_hashes(hashes):
-    conn = sqlite3.connect('cnpj.sqlite3')
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
     cursor = conn.cursor()
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS arquivos (
@@ -101,22 +103,23 @@ def salvar_hashes(hashes):
     for hash in hashes:
         nome_arquivo = hash['nome']
         hash_arquivo = hash['hash']
-        cursor.execute('INSERT INTO arquivos (nome, hash) VALUES (?,?)', (nome_arquivo, hash_arquivo))
+        cursor.execute('INSERT INTO arquivos (nome, hash) VALUES (%s,%s)', [nome_arquivo, hash_arquivo])
     conn.commit()
     conn.close()
 
 # Retornar resultados de consultas como dicionários python
-def dict_factory(cursor, row):
-    d = {}
-    for idx, col in enumerate(cursor.description):
-        d[col[0]] = row[idx]
-    return d
+# def dict_factory(cursor, row):
+#     d = {}
+#     for idx, col in enumerate(cursor.description):
+#         d[col[0]] = row[idx]
+#     return d
 
 
 def comparar_hashes():
     hashes = calcular_hash_dos_arquivos()
-    conn = sqlite3.connect('cnpj.sqlite3')
-    conn.row_factory = dict_factory
+    # conn = sqlite3.connect('cnpj.sqlite3')
+    conn = conexao()
+    # conn.row_factory = dict_factory
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM arquivos')
     arquivos = cursor.fetchall()

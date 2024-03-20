@@ -1,4 +1,4 @@
+__pycache__
 .venv/
 dados/
-cnpj.sqlite3
-*-journal
+.env
