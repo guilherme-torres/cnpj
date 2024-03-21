@@ -118,8 +118,23 @@ def comparar_hashes():
         hash_salvo = arquivo['hash']
         for hash in hashes:
             if hash['nome'] == nome and hash['hash'] != hash_salvo:
-                arquivos_modificados.append(nome)
+                arquivos_modificados.append({'nome': nome, 'hash': hash['hash']})
                 break
+    conn.close()
+    return arquivos_modificados
+
+
+def salvar_arquivos_modificados(arquivos_modificados):
+    if len(arquivos_modificados) == 0: return []
+    conn = conexao()
+    cursor = conn.cursor()
+    for arquivo in arquivos_modificados:
+        cursor.execute('''
+        UPDATE arquivos
+        SET hash = %s,
+        ultima_modificacao = CURRENT_TIMESTAMP
+        WHERE nome = %s''', [arquivo['hash'], arquivo['nome']])
+    conn.commit()
     conn.close()
     return arquivos_modificados
 
@@ -127,5 +142,11 @@ def comparar_hashes():
 if __name__ == '__main__':
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
-    arquivos_modificados = comparar_hashes()
+
+    # executar periodicamente
+    arquivos_modificados = salvar_arquivos_modificados(comparar_hashes())
+    if len(arquivos_modificados) != 0:
+        # dropar tabelas e salvar novos dados
+        pass
+
     print(arquivos_modificados)
