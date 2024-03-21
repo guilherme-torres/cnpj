@@ -1,10 +1,8 @@
-# import sqlite3
-from bd_conexao import conexao # postgres
+from bd_conexao import conexao
 import os
 import csv
 
 def criar_tabelas():
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     with open('criar_tabelas.sql') as arquivo_sql:
         sql = arquivo_sql.read()
@@ -23,7 +21,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Cnaes.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM cnaes')
@@ -43,7 +41,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Paises.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM paises')
@@ -63,7 +61,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Municipios.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM municipios')
@@ -83,7 +81,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Qualificacoes.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM qualificacoes')
@@ -103,7 +101,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Naturezas.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM naturezas')
@@ -123,7 +121,7 @@ def salvar_dados():
     caminho_arquivo = os.path.join(base_dir, 'Motivos.csv')
     with open(caminho_arquivo, encoding='Latin-1') as arquivo_csv:
         reader = csv.reader(arquivo_csv, delimiter=';')
-        # conn = sqlite3.connect('cnpj.sqlite3')
+
         conn = conexao()
         cursor = conn.cursor()
         cursor.execute('DELETE FROM motivos')
@@ -141,7 +139,6 @@ def salvar_dados():
 
     # Simples
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Simples')]
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM simples')
@@ -162,7 +159,6 @@ def salvar_dados():
 
     # Empresas
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Empresas')]
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM empresas')
@@ -183,7 +179,6 @@ def salvar_dados():
 
     # Estabelecimentos
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Estabelecimentos')]
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM estabelecimentos')
@@ -204,7 +199,6 @@ def salvar_dados():
 
     # Socios
     arquivos = [os.path.join(base_dir, arquivo) for arquivo in os.listdir(base_dir) if arquivo.startswith('Socios')]
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     cursor = conn.cursor()
     cursor.execute('DELETE FROM socios')

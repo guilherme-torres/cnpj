@@ -8,7 +8,7 @@ load_dotenv()
 HOST = os.getenv('HOST')
 PORT = os.getenv('PORT')
 DBNAME = os.getenv('DBNAME')
-USER = os.getenv('USER')
+USER = os.getenv('DBUSER')
 PASSWORD = os.getenv('PASSWORD')
 
 def conexao():

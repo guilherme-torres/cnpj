@@ -1,6 +1,5 @@
 import os
-# import sqlite3
-from bd_conexao import conexao # postgres
+from bd_conexao import conexao
 import hashlib
 
 def calcular_hash_dos_arquivos():
@@ -91,7 +90,6 @@ def calcular_hash_dos_pares(lista):
 
 
 def salvar_hashes(hashes):
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
     cursor = conn.cursor()
     cursor.execute('''
@@ -107,19 +105,10 @@ def salvar_hashes(hashes):
     conn.commit()
     conn.close()
 
-# Retornar resultados de consultas como dicionários python
-# def dict_factory(cursor, row):
-#     d = {}
-#     for idx, col in enumerate(cursor.description):
-#         d[col[0]] = row[idx]
-#     return d
-
 
 def comparar_hashes():
     hashes = calcular_hash_dos_arquivos()
-    # conn = sqlite3.connect('cnpj.sqlite3')
     conn = conexao()
-    # conn.row_factory = dict_factory
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM arquivos')
     arquivos = cursor.fetchall()
