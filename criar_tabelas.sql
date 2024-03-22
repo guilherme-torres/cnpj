@@ -54,13 +54,13 @@ CREATE TABLE IF NOT EXISTS simples (
 CREATE TABLE IF NOT EXISTS socios (
     cnpj_basico VARCHAR(8),
     identificador_de_socio VARCHAR(1),
-    nome_do_socio_razao_social VARCHAR(100),
+    nome_do_socio_razao_social VARCHAR(255),
     cnpj_cpf_do_socio VARCHAR(14),
     qualificacao_do_socio VARCHAR(2),
     data_de_entrada_sociedade VARCHAR(8),
     pais VARCHAR(3),
     representante_legal VARCHAR(11),
-    nome_do_representante VARCHAR(100),
+    nome_do_representante VARCHAR(255),
     qualificacao_do_representante_legal VARCHAR(2),
     faixa_etaria VARCHAR(1)
 );
