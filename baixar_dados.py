@@ -44,12 +44,12 @@ def baixar_dados():
     for link in links:
         nome_arquivo = link[37:]
         arquivo_zip = os.path.join(destino, nome_arquivo)
-        with zipfile.ZipFile(arquivo_zip, 'r') as zip:
+        with zipfile.ZipFile(arquivo_zip, 'r') as zip_file:
             novo_nome = os.path.join(os.path.join(destino, 'csv'), nome_arquivo.split('.')[0] + '.csv')
             if os.path.exists(novo_nome):
                 os.remove(novo_nome)
-            nome_original = os.path.join(os.path.join(destino, 'csv'), zip.namelist()[0])
-            zip.extractall(os.path.join(destino, 'csv'))
+            nome_original = os.path.join(os.path.join(destino, 'csv'), zip_file.namelist()[0])
+            zip_file.extractall(os.path.join(destino, 'csv'))
             os.rename(nome_original, novo_nome)
 
 if __name__ == '__main__':
