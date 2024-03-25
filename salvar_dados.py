@@ -218,5 +218,16 @@ def salvar_dados():
     print('dados de Socios salvos com sucesso')
 
 
+def criar_indices():
+    conn = conexao()
+    with open('criar_indices.sql') as arquivo_sql:
+        sql = arquivo_sql.read()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+    conn.commit()
+    conn.close()
+
+
 if __name__ == '__main__':
     salvar_dados()
+    criar_indices()
