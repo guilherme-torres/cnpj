@@ -8,7 +8,7 @@ from salvar_dados import *
 # SCRIPT DE INICIALIZAÇÃO
 def init():
     # 1 - baixar dados
-    baixar_dados()
+    # baixar_dados()
 
     # 2 - setar variaveis de ambiente
     print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
@@ -32,6 +32,9 @@ def init():
     cursor.close()
     conn.close()
 
+    # 4 - criar tabelas
+    criar_tabelas()
+
     # 4 - salvar hash dos arquivos
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
@@ -40,7 +43,7 @@ def init():
     salvar_dados()
     
     # 6 - criar indices
-    criar_indices()
+    # criar_indices()
 
 def main():
     if len(sys.argv) >= 2:

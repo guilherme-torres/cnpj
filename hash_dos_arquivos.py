@@ -92,16 +92,10 @@ def calcular_hash_dos_pares(lista):
 def salvar_hashes(hashes):
     conn = conexao()
     cursor = conn.cursor()
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS arquivos (
-        nome VARCHAR(30) NOT NULL,
-        hash VARCHAR(64) NOT NULL,
-        ultima_modificacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );''')
     for hash in hashes:
         nome_arquivo = hash['nome']
         hash_arquivo = hash['hash']
-        cursor.execute('INSERT INTO arquivos (nome, hash) VALUES (%s,%s)', [nome_arquivo, hash_arquivo])
+        cursor.execute('INSERT INTO HashArquivos (nome, hash) VALUES (%s,%s)', [nome_arquivo, hash_arquivo])
     conn.commit()
     conn.close()
 
@@ -110,7 +104,7 @@ def comparar_hashes():
     hashes = calcular_hash_dos_arquivos()
     conn = conexao()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM arquivos')
+    cursor.execute('SELECT * FROM HashArquivos')
     arquivos = cursor.fetchall()
     arquivos_modificados = []
     for arquivo in arquivos:
@@ -130,7 +124,7 @@ def salvar_arquivos_modificados(arquivos_modificados):
     cursor = conn.cursor()
     for arquivo in arquivos_modificados:
         cursor.execute('''
-        UPDATE arquivos
+        UPDATE HashArquivos
         SET hash = %s,
         ultima_modificacao = CURRENT_TIMESTAMP
         WHERE nome = %s''', [arquivo['hash'], arquivo['nome']])

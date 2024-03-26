@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS empresas (
+CREATE TABLE IF NOT EXISTS Empresas (
     cnpj_basico VARCHAR(8),
     razao_social VARCHAR(255),
     natureza_juridica VARCHAR(4),
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS empresas (
     porte_da_empresa VARCHAR(2),
     ente_federativo_responsavel VARCHAR(100)
 );
-CREATE TABLE IF NOT EXISTS estabelecimentos (
+CREATE TABLE IF NOT EXISTS Estabelecimentos (
     cnpj_basico VARCHAR(8),
     cnpj_ordem VARCHAR(4),
     cnpj_dv VARCHAR(2),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS estabelecimentos (
     situacao_especial VARCHAR(255),
     data_da_situacao_especial VARCHAR(8)
 );
-CREATE TABLE IF NOT EXISTS simples (
+CREATE TABLE IF NOT EXISTS Simples (
     cnpj_basico VARCHAR(8),
     opcao_pelo_simples VARCHAR(1),
     data_de_opcao_pelo_simples VARCHAR(8),
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS simples (
     data_de_opcao_pelo_mei VARCHAR(8),
     data_de_exclusao_do_mei VARCHAR(8)
 );
-CREATE TABLE IF NOT EXISTS socios (
+CREATE TABLE IF NOT EXISTS Socios (
     cnpj_basico VARCHAR(8),
     identificador_de_socio VARCHAR(1),
     nome_do_socio_razao_social VARCHAR(255),
@@ -61,69 +61,69 @@ CREATE TABLE IF NOT EXISTS socios (
     qualificacao_do_representante_legal VARCHAR(2),
     faixa_etaria VARCHAR(1)
 );
-CREATE TABLE IF NOT EXISTS cnaes (
+CREATE TABLE IF NOT EXISTS Cnaes (
     codigo VARCHAR(7),
     descricao VARCHAR(200)
 );
-CREATE TABLE IF NOT EXISTS motivos (
+CREATE TABLE IF NOT EXISTS Motivos (
     codigo VARCHAR(2),
     descricao VARCHAR(100)
 );
-CREATE TABLE IF NOT EXISTS municipios (
+CREATE TABLE IF NOT EXISTS Municipios (
     codigo VARCHAR(4),
     descricao VARCHAR(40)
 );
-CREATE TABLE IF NOT EXISTS naturezas (
+CREATE TABLE IF NOT EXISTS Naturezas (
     codigo VARCHAR(4),
     descricao VARCHAR(100)
 );
-CREATE TABLE IF NOT EXISTS paises (
+CREATE TABLE IF NOT EXISTS Paises (
     codigo VARCHAR(3),
     descricao VARCHAR(50)
 );
-CREATE TABLE IF NOT EXISTS qualificacoes (
+CREATE TABLE IF NOT EXISTS Qualificacoes (
     codigo VARCHAR(2),
     descricao VARCHAR(100)
 );
-CREATE TABLE IF NOT EXISTS porte_empresa (
+CREATE TABLE IF NOT EXISTS PorteEmpresa (
     codigo VARCHAR(2),
     descricao VARCHAR(30)
 );
-INSERT INTO porte_empresa (codigo, descricao) VALUES
+INSERT INTO PorteEmpresa (codigo, descricao) VALUES
 ('00', 'NÃO INFORMADO'),
 ('01', 'MICRO EMPRESA'),
 ('03', 'EMPRESA DE PEQUENO PORTE'),
 ('05', 'DEMAIS');
-CREATE TABLE IF NOT EXISTS matriz_filial (
+CREATE TABLE IF NOT EXISTS MatrizFilial (
     codigo VARCHAR(1),
     descricao VARCHAR(10)
 );
-INSERT INTO matriz_filial (codigo, descricao) VALUES
+INSERT INTO MatrizFilial (codigo, descricao) VALUES
 ('1', 'MATRIZ'),
 ('2', 'FILIAL');
-CREATE TABLE IF NOT EXISTS situacao_cadastral (
+CREATE TABLE IF NOT EXISTS SituacaoCadastral (
     codigo VARCHAR(2),
     descricao VARCHAR(10)
 );
-INSERT INTO situacao_cadastral (codigo, descricao) VALUES
+INSERT INTO SituacaoCadastral (codigo, descricao) VALUES
 ('01', 'NULA'),
 ('2', 'ATIVA'),
 ('3', 'SUSPENSA'),
 ('4', 'INAPTA'),
 ('08', 'BAIXADA');
-CREATE TABLE IF NOT EXISTS identificacao_socio (
+CREATE TABLE IF NOT EXISTS IdentificacaoSocio (
     codigo VARCHAR(1),
     descricao VARCHAR(20)
 );
-INSERT INTO identificacao_socio (codigo, descricao) VALUES
+INSERT INTO IdentificacaoSocio (codigo, descricao) VALUES
 ('1', 'PESSOA JURÍDICA'),
 ('2', 'PESSOA FÍSICA'),
 ('3', 'ESTRANGEIRO');
-CREATE TABLE IF NOT EXISTS faixa_etaria (
+CREATE TABLE IF NOT EXISTS FaixaEtaria (
     codigo VARCHAR(2),
     descricao VARCHAR(20)
 );
-INSERT INTO faixa_etaria (codigo, descricao) VALUES
+INSERT INTO FaixaEtaria (codigo, descricao) VALUES
 ('1', '0-12'),
 ('2', '13-20'),
 ('3', '21-30'),
@@ -134,3 +134,8 @@ INSERT INTO faixa_etaria (codigo, descricao) VALUES
 ('8', '71-80'),
 ('9', '+80'),
 ('0', 'não se aplica');
+CREATE TABLE IF NOT EXISTS HashArquivos (
+    nome VARCHAR(30) NOT NULL,
+    hash VARCHAR(64) NOT NULL,
+    ultima_modificacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
