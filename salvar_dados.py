@@ -4,7 +4,7 @@ import csv
 
 def criar_tabelas():
     conn = conexao()
-    with open('criar_tabelas.sql') as arquivo_sql:
+    with open('criar_tabelas.sql', encoding='utf-8') as arquivo_sql:
         sql = arquivo_sql.read()
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -229,5 +229,6 @@ def criar_indices():
 
 
 if __name__ == '__main__':
-    salvar_dados()
-    criar_indices()
+    # salvar_dados()
+    # criar_indices()
+    criar_tabelas()

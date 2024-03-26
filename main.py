@@ -11,6 +11,7 @@ def init():
     baixar_dados()
 
     # 2 - setar variaveis de ambiente
+    print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
     HOST = input('host: ')
     PORT = input('porta: ')
     DBNAME = input('nome do banco de dados: ')
