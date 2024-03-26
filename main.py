@@ -1,7 +1,7 @@
 import sys
 import getpass
+import psycopg
 from baixar_dados import baixar_dados
-from bd_conexao import conexao
 from hash_dos_arquivos import *
 from salvar_dados import *
 
@@ -9,6 +9,7 @@ from salvar_dados import *
 def init():
     # 1 - baixar dados
     baixar_dados()
+
     # 2 - setar variaveis de ambiente
     HOST = input('host: ')
     PORT = input('porta: ')
@@ -16,33 +17,47 @@ def init():
     DBUSER = input('usuario: ')
     PASSWORD = getpass.getpass(prompt='senha: ')
 
-    
-    # 3 - criar banco de dados cnpj
+    with open('.env', 'w') as arquivo_env:
+        arquivo_env.write(f"HOST={HOST}\n")
+        arquivo_env.write(f"PORT={PORT}\n")
+        arquivo_env.write(f"DBNAME={DBNAME}\n")
+        arquivo_env.write(f"DBUSER={DBUSER}\n")
+        arquivo_env.write(f"PASSWORD={PASSWORD}\n")
+
+    # 3 - criar banco de dados
+    conn = psycopg.connect(host=HOST, port=PORT, user=DBUSER, password=PASSWORD, autocommit=True)
+    cursor = conn.cursor()
+    cursor.execute('CREATE DATABASE ' + DBNAME)
+    cursor.close()
+    conn.close()
 
     # 4 - salvar hash dos arquivos
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
+
     # 5 - salvar dados
     salvar_dados()
+    
     # 6 - criar indices
     criar_indices()
 
 def main():
     if len(sys.argv) >= 2:
         if sys.argv[1] == '--init':
-            print('inicializando...')
-            # init()
-            sys.exit(0)
+            init()
+            return
         else:
             print('Uso correto: python main.py --init')
-            sys.exit(1)
-
-    # SCRIPT QUE SERÁ EXECUTADO MENSALMENTE
-    # 1 - baixar dados
-    # 2 - comparar hashes dos arquivos
-    # 3 - atualizar tabela de hashes com as modificações
-    # 4 - ver quais arquivos foram modificados e realimentar a tabela com novos dados
+            return
     print('main')
+    # SCRIPT QUE SERÁ EXECUTADO MENSALMENTE
+    # baixar_dados()
+    # arquivos_modificados = comparar_hashes()
+    # if len(arquivos_modificados) != 0:
+    #     salvar_arquivos_modificados(arquivos_modificados)
+    #     for arquivo in arquivos_modificados:
+    #         # deletar todos os dados da tabela e salvar novos dados
+    #         pass
 
 
 if __name__ == '__main__':
