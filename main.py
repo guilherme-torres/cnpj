@@ -5,12 +5,9 @@ from baixar_dados import baixar_dados
 from hash_dos_arquivos import *
 from salvar_dados import *
 
-# SCRIPT DE INICIALIZAÇÃO
 def init():
-    # 1 - baixar dados
-    # baixar_dados()
+    baixar_dados()
 
-    # 2 - setar variaveis de ambiente
     print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
     HOST = input('host: ')
     PORT = input('porta: ')
@@ -25,25 +22,17 @@ def init():
         arquivo_env.write(f"DBUSER={DBUSER}\n")
         arquivo_env.write(f"PASSWORD={PASSWORD}\n")
 
-    # 3 - criar banco de dados
     conn = psycopg.connect(host=HOST, port=PORT, user=DBUSER, password=PASSWORD, autocommit=True)
     cursor = conn.cursor()
     cursor.execute('CREATE DATABASE ' + DBNAME)
     cursor.close()
     conn.close()
 
-    # 4 - criar tabelas
     criar_tabelas()
-
-    # 4 - salvar hash dos arquivos
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
-
-    # 5 - salvar dados
     salvar_dados()
-    
-    # 6 - criar indices
-    # criar_indices()
+    criar_indices()
 
 def main():
     if len(sys.argv) >= 2:
