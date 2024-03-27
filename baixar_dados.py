@@ -23,7 +23,7 @@ def baixar_dados():
     for link in links:
         resposta = requests.get(link, stream=True)
         arquivo_zip = os.path.join(destino, link[37:])
-        if resposta.status_code == requests.codes.OK:
+        if resposta.status_code == 200:
             with open(arquivo_zip, 'wb') as arquivo:
                 total = int(resposta.headers.get('content-length', 0))
                 tqdm_params = {

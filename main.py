@@ -42,15 +42,14 @@ def main():
         else:
             print('Uso correto: python main.py --init')
             return
-    print('main')
-    # SCRIPT QUE SERÁ EXECUTADO MENSALMENTE
-    # baixar_dados()
-    # arquivos_modificados = comparar_hashes()
-    # if len(arquivos_modificados) != 0:
-    #     salvar_arquivos_modificados(arquivos_modificados)
-    #     for arquivo in arquivos_modificados:
-    #         # deletar todos os dados da tabela e salvar novos dados
-    #         pass
+    
+    baixar_dados()
+    arquivos_modificados = comparar_hashes()
+    if len(arquivos_modificados) != 0:
+        print(f'Arquivos modificados -> {arquivos_modificados}')
+        salvar_arquivos_modificados(arquivos_modificados)
+        for arquivo in arquivos_modificados:
+            csv_para_tabela(conexao=conexao, nome_tabela=arquivo['nome'])
 
 
 if __name__ == '__main__':
