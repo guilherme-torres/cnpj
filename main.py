@@ -1,9 +1,9 @@
-import sys
 import getpass
-import psycopg
+import argparse
 from baixar_dados import baixar_dados
 from hash_dos_arquivos import *
 from salvar_dados import *
+from bd_conexao import conexao
 
 def init():
     baixar_dados()
@@ -11,7 +11,7 @@ def init():
     print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
     HOST = input('host: ')
     PORT = input('porta: ')
-    DBNAME = input('nome do banco de dados: ')
+    DBNAME = 'postgres' # BD padrão do postgres
     DBUSER = input('usuario: ')
     PASSWORD = getpass.getpass(prompt='senha: ')
 
@@ -22,26 +22,23 @@ def init():
         arquivo_env.write(f"DBUSER={DBUSER}\n")
         arquivo_env.write(f"PASSWORD={PASSWORD}\n")
 
-    conn = psycopg.connect(host=HOST, port=PORT, user=DBUSER, password=PASSWORD, autocommit=True)
-    cursor = conn.cursor()
-    cursor.execute('CREATE DATABASE ' + DBNAME)
-    cursor.close()
-    conn.close()
-
     criar_tabelas()
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
     salvar_dados()
     criar_indices()
 
+
 def main():
-    if len(sys.argv) >= 2:
-        if sys.argv[1] == '--init':
-            init()
-            return
-        else:
-            print('Uso correto: python main.py --init')
-            return
+    parser = argparse.ArgumentParser(
+        description='Criar um Banco de Dados com os dados de CNPJ disponibilizados pela Receita Federal do Brasil.'
+    )
+    parser.add_argument('--init', action='store_true', help='configura e inicializa o Banco de Dados')
+    args = parser.parse_args()
+
+    if args.init:
+        init()
+        return
     
     baixar_dados()
     arquivos_modificados = comparar_hashes()

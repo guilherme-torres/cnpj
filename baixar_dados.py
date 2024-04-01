@@ -35,12 +35,13 @@ def baixar_dados():
                     'unit_divisor': 1024,
                 }
                 with tqdm.tqdm(**tqdm_params) as pb:
-                    for chunk in resposta.iter_content(chunk_size=1024*10):
+                    for chunk in resposta.iter_content(chunk_size=32768):
                         pb.update(len(chunk))
                         arquivo.write(chunk)
         else:
             resposta.raise_for_status()
 
+    print('Descompactando arquivos...')
     for link in links:
         nome_arquivo = link[37:]
         arquivo_zip = os.path.join(destino, nome_arquivo)
@@ -51,6 +52,8 @@ def baixar_dados():
             nome_original = os.path.join(os.path.join(destino, 'csv'), zip_file.namelist()[0])
             zip_file.extractall(os.path.join(destino, 'csv'))
             os.rename(nome_original, novo_nome)
+    print('Arquivos descompactados com sucesso')
+
 
 if __name__ == '__main__':
     baixar_dados()
