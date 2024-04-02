@@ -11,7 +11,7 @@ def init():
     print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
     HOST = input('host: ')
     PORT = input('porta: ')
-    DBNAME = 'postgres' # BD padrão do postgres
+    DBNAME = 'postgres'
     DBUSER = input('usuario: ')
     PASSWORD = getpass.getpass(prompt='senha: ')
 
