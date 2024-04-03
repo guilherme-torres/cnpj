@@ -45,6 +45,7 @@ def salvar_dados():
 
 
 def criar_indices():
+    print('Criando indices...')
     conn = conexao()
     with open('criar_indices.sql') as arquivo_sql:
         sql = arquivo_sql.read()
@@ -52,6 +53,7 @@ def criar_indices():
         cursor.execute(sql)
     conn.commit()
     conn.close()
+    print('Indices criados com sucesso')
 
 
 if __name__ == '__main__':
