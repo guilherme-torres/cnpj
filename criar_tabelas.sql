@@ -62,27 +62,27 @@ CREATE TABLE IF NOT EXISTS Socios (
     faixa_etaria VARCHAR(1)
 );
 CREATE TABLE IF NOT EXISTS Cnaes (
-    codigo VARCHAR(7),
+    codigo VARCHAR(7) NOT NULL PRIMARY KEY,
     descricao VARCHAR(200)
 );
 CREATE TABLE IF NOT EXISTS Motivos (
-    codigo VARCHAR(2),
+    codigo VARCHAR(2) NOT NULL PRIMARY KEY,
     descricao VARCHAR(100)
 );
 CREATE TABLE IF NOT EXISTS Municipios (
-    codigo VARCHAR(4),
+    codigo VARCHAR(4) NOT NULL PRIMARY KEY,
     descricao VARCHAR(40)
 );
 CREATE TABLE IF NOT EXISTS Naturezas (
-    codigo VARCHAR(4),
+    codigo VARCHAR(4) NOT NULL PRIMARY KEY,
     descricao VARCHAR(100)
 );
 CREATE TABLE IF NOT EXISTS Paises (
-    codigo VARCHAR(3),
+    codigo VARCHAR(3) NOT NULL PRIMARY KEY,
     descricao VARCHAR(50)
 );
 CREATE TABLE IF NOT EXISTS Qualificacoes (
-    codigo VARCHAR(2),
+    codigo VARCHAR(2) NOT NULL PRIMARY KEY,
     descricao VARCHAR(100)
 );
 CREATE TABLE IF NOT EXISTS PorteEmpresa (
