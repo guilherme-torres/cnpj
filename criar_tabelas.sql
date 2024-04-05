@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS Empresas (
     natureza_juridica VARCHAR(4),
     qualificacao_do_responsavel VARCHAR(2),
     capital_social_da_empresa VARCHAR(20),
-    porte_da_empresa SMALLINT,
+    porte_da_empresa VARCHAR(2),
     ente_federativo_responsavel VARCHAR(100)
 );
 CREATE TABLE IF NOT EXISTS Estabelecimentos (
@@ -86,14 +86,14 @@ CREATE TABLE IF NOT EXISTS Qualificacoes (
     descricao VARCHAR(100)
 );
 CREATE TABLE IF NOT EXISTS PorteEmpresa (
-    codigo SMALLINT NOT NULL PRIMARY KEY,
+    codigo VARCHAR(2) NOT NULL PRIMARY KEY,
     descricao VARCHAR(30)
 );
 INSERT INTO PorteEmpresa (codigo, descricao) VALUES
-(0, 'NÃO INFORMADO'),
-(1, 'MICRO EMPRESA'),
-(3, 'EMPRESA DE PEQUENO PORTE'),
-(5, 'DEMAIS');
+('00', 'NÃO INFORMADO'),
+('01', 'MICRO EMPRESA'),
+('03', 'EMPRESA DE PEQUENO PORTE'),
+('05', 'DEMAIS');
 CREATE TABLE IF NOT EXISTS MatrizFilial (
     codigo SMALLINT NOT NULL PRIMARY KEY,
     descricao VARCHAR(10)
@@ -140,8 +140,8 @@ CREATE TABLE IF NOT EXISTS HashArquivos (
     ultima_modificacao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE Empresas ADD CONSTRAINT fk_natureza_juridica FOREIGN KEY (natureza_juridica) REFERENCES Naturezas(codigo);
-ALTER TABLE Empresas ADD CONSTRAINT fk_porte_da_empresa FOREIGN KEY (porte_da_empresa) REFERENCES PorteEmpresa(codigo);
 ALTER TABLE Empresas ADD CONSTRAINT fk_qualificacao_do_responsavel FOREIGN KEY (qualificacao_do_responsavel) REFERENCES Qualificacoes(codigo);
+ALTER TABLE Empresas ADD CONSTRAINT fk_porte_da_empresa FOREIGN KEY (porte_da_empresa) REFERENCES PorteEmpresa(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_identificador_matriz_filial FOREIGN KEY (identificador_matriz_filial) REFERENCES MatrizFilial(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_situacao_cadastral FOREIGN KEY (situacao_cadastral) REFERENCES SituacaoCadastral(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_motivo_situacao_cadastral FOREIGN KEY (motivo_situacao_cadastral) REFERENCES Motivos(codigo);
