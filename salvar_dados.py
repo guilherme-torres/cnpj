@@ -40,8 +40,21 @@ def salvar_dados():
         'Cnaes', 'Paises', 'Municipios', 'Qualificacoes', 'Naturezas',
         'Motivos', 'Simples', 'Empresas', 'Socios', 'Estabelecimentos'
     ]
+    
     for nome in arquivos:
         csv_para_tabela(conexao=conexao, nome_tabela=nome)
+
+    print("Atualizando campos vazios de Empresas.porte_da_empresa para '00'...")
+    conn = conexao()
+    with open('porte_empresa.sql') as arquivo_sql:
+        sql = arquivo_sql.read()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    print('Tabela Empresas atualizada')
+    print('Chave estrangeira para PorteEmpresa.codigo criada')
 
 
 def criar_indices():
@@ -52,6 +65,7 @@ def criar_indices():
         cursor = conn.cursor()
         cursor.execute(sql)
     conn.commit()
+    cursor.close()
     conn.close()
     print('Indices criados com sucesso')
 

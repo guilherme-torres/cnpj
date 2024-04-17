@@ -141,7 +141,6 @@ CREATE TABLE IF NOT EXISTS HashArquivos (
 );
 ALTER TABLE Empresas ADD CONSTRAINT fk_natureza_juridica FOREIGN KEY (natureza_juridica) REFERENCES Naturezas(codigo);
 ALTER TABLE Empresas ADD CONSTRAINT fk_qualificacao_do_responsavel FOREIGN KEY (qualificacao_do_responsavel) REFERENCES Qualificacoes(codigo);
-ALTER TABLE Empresas ADD CONSTRAINT fk_porte_da_empresa FOREIGN KEY (porte_da_empresa) REFERENCES PorteEmpresa(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_identificador_matriz_filial FOREIGN KEY (identificador_matriz_filial) REFERENCES MatrizFilial(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_situacao_cadastral FOREIGN KEY (situacao_cadastral) REFERENCES SituacaoCadastral(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_motivo_situacao_cadastral FOREIGN KEY (motivo_situacao_cadastral) REFERENCES Motivos(codigo);
