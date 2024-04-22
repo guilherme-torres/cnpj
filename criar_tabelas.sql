@@ -146,7 +146,6 @@ ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_situacao_cadastral FOREIGN KEY (s
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_motivo_situacao_cadastral FOREIGN KEY (motivo_situacao_cadastral) REFERENCES Motivos(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_pais FOREIGN KEY (pais) REFERENCES Paises(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_cnae_fiscal_principal FOREIGN KEY (cnae_fiscal_principal) REFERENCES Cnaes(codigo);
-ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_cnae_fiscal_secundaria FOREIGN KEY (cnae_fiscal_secundaria) REFERENCES Cnaes(codigo);
 ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_municipio FOREIGN KEY (municipio) REFERENCES Municipios(codigo);
 ALTER TABLE Socios ADD CONSTRAINT fk_identificador_de_socio FOREIGN KEY (identificador_de_socio) REFERENCES IdentificacaoSocio(codigo);
 ALTER TABLE Socios ADD CONSTRAINT fk_qualificacao_do_socio FOREIGN KEY (qualificacao_do_socio) REFERENCES Qualificacoes(codigo);
