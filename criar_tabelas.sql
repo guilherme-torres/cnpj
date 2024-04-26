@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS PorteEmpresa (
     descricao VARCHAR(30)
 );
 INSERT INTO PorteEmpresa (codigo, descricao) VALUES
+('', 'NÃO INFORMADO'),
 ('00', 'NÃO INFORMADO'),
 ('01', 'MICRO EMPRESA'),
 ('03', 'EMPRESA DE PEQUENO PORTE'),
