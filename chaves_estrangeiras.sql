@@ -1,0 +1,14 @@
+ALTER TABLE Empresas ADD CONSTRAINT fk_natureza_juridica FOREIGN KEY (natureza_juridica) REFERENCES Naturezas(codigo);
+ALTER TABLE Empresas ADD CONSTRAINT fk_qualificacao_do_responsavel FOREIGN KEY (qualificacao_do_responsavel) REFERENCES Qualificacoes(codigo);
+ALTER TABLE Empresas ADD CONSTRAINT fk_porte_da_empresa FOREIGN KEY (porte_da_empresa) REFERENCES PorteEmpresa(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_identificador_matriz_filial FOREIGN KEY (identificador_matriz_filial) REFERENCES MatrizFilial(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_situacao_cadastral FOREIGN KEY (situacao_cadastral) REFERENCES SituacaoCadastral(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_motivo_situacao_cadastral FOREIGN KEY (motivo_situacao_cadastral) REFERENCES Motivos(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_pais FOREIGN KEY (pais) REFERENCES Paises(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_cnae_fiscal_principal FOREIGN KEY (cnae_fiscal_principal) REFERENCES Cnaes(codigo);
+ALTER TABLE Estabelecimentos ADD CONSTRAINT fk_municipio FOREIGN KEY (municipio) REFERENCES Municipios(codigo);
+ALTER TABLE Socios ADD CONSTRAINT fk_identificador_de_socio FOREIGN KEY (identificador_de_socio) REFERENCES IdentificacaoSocio(codigo);
+ALTER TABLE Socios ADD CONSTRAINT fk_qualificacao_do_socio FOREIGN KEY (qualificacao_do_socio) REFERENCES Qualificacoes(codigo);
+ALTER TABLE Socios ADD CONSTRAINT fk_pais FOREIGN KEY (pais) REFERENCES Paises(codigo);
+ALTER TABLE Socios ADD CONSTRAINT fk_qualificacao_do_representante_legal FOREIGN KEY (qualificacao_do_representante_legal) REFERENCES Qualificacoes(codigo);
+ALTER TABLE Socios ADD CONSTRAINT fk_faixa_etaria FOREIGN KEY (faixa_etaria) REFERENCES FaixaEtaria(codigo);

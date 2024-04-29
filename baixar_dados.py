@@ -4,6 +4,7 @@ import zipfile
 import os
 import tqdm
 import threading
+import shutil
 
 def download(link, filename):
     resposta = requests.get(link, stream=True)
@@ -29,10 +30,13 @@ def download(link, filename):
 
 def baixar_dados():
     url = 'https://dadosabertos.rfb.gov.br/CNPJ/'
-    destino = os.path.join(os.getcwd(), 'dados_teste')
+    destino = os.path.join(os.getcwd(), 'dados')
 
     if not os.path.exists(destino):
-        os.makedirs(destino)
+        os.mkdir(destino)
+    
+    shutil.rmtree(destino)
+    os.mkdir(destino)
 
     resposta = requests.get(url)
     pagina = BeautifulSoup(resposta.content, 'html.parser')
@@ -51,38 +55,18 @@ def baixar_dados():
     
     for thread in threads:
         thread.join()
-        # resposta = requests.get(link, stream=True)
-        # arquivo_zip = os.path.join(destino, link[37:])
-        # if resposta.status_code == 200:
-        #     with open(arquivo_zip, 'wb') as arquivo:
-        #         total = int(resposta.headers.get('content-length', 0))
-        #         tqdm_params = {
-        #             'desc': link,
-        #             'total': total,
-        #             'miniters': 1,
-        #             'unit': 'B',
-        #             'unit_scale': True,
-        #             'unit_divisor': 1024,
-        #         }
-        #         with tqdm.tqdm(**tqdm_params) as pb:
-        #             for chunk in resposta.iter_content(chunk_size=32768):
-        #                 pb.update(len(chunk))
-        #                 arquivo.write(chunk)
-        # else:
-        #     resposta.raise_for_status()
 
-    # print('Descompactando arquivos...')
-    # for link in links:
-    #     nome_arquivo = link[37:]
-    #     arquivo_zip = os.path.join(destino, nome_arquivo)
-    #     with zipfile.ZipFile(arquivo_zip, 'r') as zip_file:
-    #         novo_nome = os.path.join(os.path.join(destino, 'csv'), nome_arquivo.split('.')[0] + '.csv')
-    #         if os.path.exists(novo_nome):
-    #             os.remove(novo_nome)
-    #         nome_original = os.path.join(os.path.join(destino, 'csv'), zip_file.namelist()[0])
-    #         zip_file.extractall(os.path.join(destino, 'csv'))
-    #         os.rename(nome_original, novo_nome)
-    # print('Arquivos descompactados com sucesso')
+    print('Descompactando arquivos...')
+    for link, filename in links:
+        destino_csv = os.path.join(destino, 'csv')
+        with zipfile.ZipFile(filename, 'r') as zip_file:
+            novo_nome = os.path.join(destino_csv, filename.split('.')[0] + '.csv')
+            if os.path.exists(novo_nome):
+                os.remove(novo_nome)
+            nome_original = os.path.join(destino_csv, zip_file.namelist()[0])
+            zip_file.extractall(destino_csv)
+            os.rename(nome_original, novo_nome)
+    print('Arquivos descompactados com sucesso')
 
 
 if __name__ == '__main__':
