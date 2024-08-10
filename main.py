@@ -6,8 +6,6 @@ from salvar_dados import *
 from bd_conexao import conexao
 
 def init():
-    baixar_dados()
-
     print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
     HOST = input('host: ')
     PORT = input('porta: ')
@@ -22,6 +20,7 @@ def init():
         arquivo_env.write(f"DBUSER={DBUSER}\n")
         arquivo_env.write(f"PASSWORD={PASSWORD}\n")
 
+    baixar_dados()
     criar_tabelas()
     hashes = calcular_hash_dos_arquivos()
     salvar_hashes(hashes)
@@ -44,7 +43,7 @@ def main():
     arquivos_modificados = comparar_hashes()
     if len(arquivos_modificados) != 0:
         print(f'Arquivos modificados -> {arquivos_modificados}')
-        salvar_arquivos_modificados(arquivos_modificados)
+        atualizar_tabela_de_hash_dos_arquivos(arquivos_modificados)
         for arquivo in arquivos_modificados:
             csv_para_tabela(conexao=conexao, nome_tabela=arquivo['nome'])
 

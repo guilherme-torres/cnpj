@@ -118,7 +118,7 @@ def comparar_hashes():
     return arquivos_modificados
 
 
-def salvar_arquivos_modificados(arquivos_modificados):
+def atualizar_tabela_de_hash_dos_arquivos(arquivos_modificados):
     if len(arquivos_modificados) == 0: return []
     conn = conexao()
     cursor = conn.cursor()
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     salvar_hashes(hashes)
 
     # executar periodicamente
-    arquivos_modificados = salvar_arquivos_modificados(comparar_hashes())
+    arquivos_modificados = atualizar_tabela_de_hash_dos_arquivos(comparar_hashes())
     if len(arquivos_modificados) != 0:
         # dropar tabelas e salvar novos dados
         pass
