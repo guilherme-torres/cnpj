@@ -6,24 +6,23 @@ from salvar_dados import *
 from bd_conexao import conexao
 
 def init():
-    print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
-    HOST = input('host: ')
-    PORT = input('porta: ')
-    DBNAME = 'postgres'
-    DBUSER = input('usuario: ')
-    PASSWORD = getpass.getpass(prompt='senha: ')
+    # print('-> CONFIGURAR CONEXÃO COM O POSTGRES')
+    # HOST = input('host: ')
+    # PORT = input('porta: ')
+    # DBNAME = 'postgres'
+    # DBUSER = input('usuario: ')
+    # PASSWORD = getpass.getpass(prompt='senha: ')
 
-    with open('.env', 'w') as arquivo_env:
-        arquivo_env.write(f"HOST={HOST}\n")
-        arquivo_env.write(f"PORT={PORT}\n")
-        arquivo_env.write(f"DBNAME={DBNAME}\n")
-        arquivo_env.write(f"DBUSER={DBUSER}\n")
-        arquivo_env.write(f"PASSWORD={PASSWORD}\n")
+    # with open('.env', 'w') as arquivo_env:
+    #     arquivo_env.write(f"HOST={HOST}\n")
+    #     arquivo_env.write(f"PORT={PORT}\n")
+    #     arquivo_env.write(f"DBNAME={DBNAME}\n")
+    #     arquivo_env.write(f"DBUSER={DBUSER}\n")
+    #     arquivo_env.write(f"PASSWORD={PASSWORD}\n")
 
     baixar_dados()
     criar_tabelas()
-    hashes = calcular_hash_dos_arquivos()
-    salvar_hashes(hashes)
+    salvar_hashes(calcular_hash_dos_arquivos())
     salvar_dados()
     criar_indices()
 

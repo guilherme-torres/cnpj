@@ -33,14 +33,14 @@ def download_file_wrapper(args):
 
 
 def baixar_dados():
-    url = 'https://dadosabertos.rfb.gov.br/CNPJ/'
-    destino = os.path.join(os.getcwd(), 'dados')
+    url = 'https://arquivos.receitafederal.gov.br/cnpj/dados_abertos_cnpj/2025-05/'
+    destino = 'dados'
 
     if not os.path.exists(destino):
         os.mkdir(destino)
     
-    shutil.rmtree(destino)
-    os.mkdir(destino)
+    # shutil.rmtree(destino)
+    # os.mkdir(destino)
 
     resposta = requests.get(url)
     pagina = BeautifulSoup(resposta.content, 'html.parser')

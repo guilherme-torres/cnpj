@@ -1,9 +1,9 @@
 import psycopg
 from psycopg.rows import dict_row
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 HOST = os.getenv('HOST')
 PORT = os.getenv('PORT')
@@ -13,5 +13,6 @@ PASSWORD = os.getenv('PASSWORD')
 
 def conexao():
     conn_string = f'host={HOST} port={PORT} dbname={DBNAME} user={USER} password={PASSWORD}'
+    print(conn_string)
     conn = psycopg.connect(conn_string, row_factory=dict_row)
     return conn

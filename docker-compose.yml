@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 54321:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345678
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - pgnetwork
+
+  app:
+    build: .
+    networks:
+      - pgnetwork
+    env_file: .env
+    volumes:
+      - ./dados:/app/dados
+    depends_on:
+      - db
+
+networks:
+  pgnetwork:
