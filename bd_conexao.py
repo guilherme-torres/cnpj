@@ -5,11 +5,11 @@ import os
 
 # load_dotenv()
 
-HOST = os.getenv('HOST')
-PORT = os.getenv('PORT')
+HOST = os.getenv('DBHOST')
+PORT = os.getenv('DBPORT')
 DBNAME = os.getenv('DBNAME')
 USER = os.getenv('DBUSER')
-PASSWORD = os.getenv('PASSWORD')
+PASSWORD = os.getenv('DBPASSWORD')
 
 def conexao():
     conn_string = f'host={HOST} port={PORT} dbname={DBNAME} user={USER} password={PASSWORD}'

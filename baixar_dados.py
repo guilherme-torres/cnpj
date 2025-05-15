@@ -34,7 +34,7 @@ def download_file_wrapper(args):
 
 def baixar_dados():
     url = 'https://arquivos.receitafederal.gov.br/cnpj/dados_abertos_cnpj/2025-05/'
-    destino = 'dados'
+    destino = os.path.join(os.getcwd(), 'dados')
 
     if not os.path.exists(destino):
         os.mkdir(destino)
@@ -55,14 +55,15 @@ def baixar_dados():
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
         results = list(executor.map(download_file_wrapper, links))
 
+    destino_csv = os.path.join(destino, 'csv')
     for link, filename in links:
         print('Descompactando ' + filename)
-        destino_csv = os.path.join(destino, 'csv')
         with zipfile.ZipFile(filename, 'r') as zip_file:
-            novo_nome = os.path.join(destino_csv, filename.split('.')[0] + '.csv')
+            nome_original = os.path.join(destino_csv, zip_file.namelist()[0])
+            nome_base = os.path.splitext(os.path.basename(filename))[0]
+            novo_nome = os.path.join(destino_csv, nome_base + '.csv')
             if os.path.exists(novo_nome):
                 os.remove(novo_nome)
-            nome_original = os.path.join(destino_csv, zip_file.namelist()[0])
             zip_file.extractall(destino_csv)
             os.rename(nome_original, novo_nome)
         print(filename + ' descompactado com sucesso')

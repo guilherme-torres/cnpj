@@ -1,24 +1,27 @@
 services:
   db:
     image: postgres:latest
+    container_name: postgres
     ports:
       - 54321:5432
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=${DBNAME}
+      - POSTGRES_USER=${DBUSER}
+      - POSTGRES_PASSWORD=${DBPASSWORD}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - pgnetwork
 
   app:
+    entrypoint: tail -f /dev/null
     build: .
+    container_name: app_cnpj
     networks:
       - pgnetwork
     env_file: .env
     volumes:
-      - ./dados:/app/dados
+      - .:/app
     depends_on:
       - db
 
